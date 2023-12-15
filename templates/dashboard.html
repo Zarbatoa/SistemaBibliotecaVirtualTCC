@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<nav>
+    <ul>
+        <li><a href="../dashboard/">Dashboard</a></li>
+        <li><a href="../novoLivro/">Cadastrar novo livro</a></li>
+        <li><a href="../pesquisaLivro/">Pesquisar livro</a></li>
+        <li><a href="../novoUsuario/">Cadastrar novo usuário</a></li>
+        <li><a href="../pesquisaUsuario/">Pesquisar usuário</a></li>
+        <li><a href="../login">Efetuar logout</a></li>
+    </ul>
+</nav>
+
+<h1>Biblioteca virtual</h1>
+
+{% block logged_content %}
+<p>Dashboard</p>
+<p>Bem-vindo(a) {{usuario_login}}</p>
+{% endblock %}
+
+
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends 'dashboard.html' %}
+
+{% block logged_content %}
+<h1>Pesquisa Usuário</h1>
+<form method="post">
+    {% csrf_token %}
+       
+    <input type="text" name="texto_pesquisa"/>
+    <input type="submit" name="acao" value="Pesquisar"/>
+    <input type="submit" name="acao" value="Limpar"/>
+
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>*</th>
+                <th>Login</th>
+                <th>Senha</th>
+                <th>Editar</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for usuario in usuarios %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ usuario.login }}</td>
+                    <td>{{ usuario.senha }}</td>
+                    <td><a href="../editarUsuario/{{usuario.pk}}" name="id_usuario">Editar</a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+</form>
+
+{% endblock %}

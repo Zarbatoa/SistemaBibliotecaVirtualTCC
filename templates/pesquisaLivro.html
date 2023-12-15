@@ -1,0 +1,77 @@
+
+{% extends 'dashboard.html' %}
+
+{% block logged_content %}
+<h1>Pesquisa Livro</h1>
+
+<form method="post">
+    {% csrf_token %}
+       
+    <input type="text" name="texto_pesquisa"/>
+    <input type="submit" name="acao" value="Pesquisar"/>
+    <input type="submit" name="acao" value="Limpar"/>
+
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>*</th>
+                <th>Título</th>
+                <th>Autor</th>
+                <th>Ano publicação</th>
+                <th>Descrição</th>
+                <th>ISBN</th>
+
+                <th>Emprestado</th>
+                <th>Doado</th>
+                <th>Nota</th>
+
+                <th>Pessoa emprestado/doado</th>
+                <th>Data emprestado/doado</th>
+                <th>Editar</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            {% for livro in livros %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ livro.titulo }}</td>
+                    <td>{{ livro.autor }}</td>
+                    <td>{{ livro.ano_publicacao}}</td>
+                    <td>{{ livro.descricao }}</td>
+                    <td>{{ livro.isbn }}</td>
+
+                    <td>{% if livro.emprestado == True %}Sim{%else %}Não{% endif %}</td>
+                    <td>{% if livro.doado == True %}Sim{%else %}Não{% endif %}</td>
+                    <td>{{ livro.avaliacao }}</td>
+
+                    <td>{%if livro.nome_pessoa_empr is None or livro.nome_pessoa_empr == ""%}Não há empréstimo ou doação.{%else%}{{livro.nome_pessoa_empr}}{%endif%}</td>
+                    <td>{%if livro.data_emprest_doa is None %}Não há empréstimo ou doação.{%else%}{{livro.data_emprest_doa}}{%endif%}</td>
+                    <td><a href="../editarLivro/{{livro.pk}}" name="id_livro">Editar</a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+</form>
+
+<!--
+<h2>Exemplo de objeto:</h2>
+<ul>
+    <li>Título: {{object.titulo}}</li>
+    <li>Autor: {{object.autor}}</li>
+    <li>Ano de publicação: {{object.ano_publicacao}}</li>
+    <li>Descrição: {{object.descricao}}</li>
+    <li>ISBN: {{object.isbn}}</li>
+
+    <li>Está emprestado: {% if object.emprestado == True %}Sim{%else %}Não{% endif %}</li>
+    <li>Foi doado: {% if object.doado == True %}Sim{%else %}Não{% endif %}</li>
+    <li>Avaliação/Nota: {{object.avaliacao}}</li>
+
+    <li>Nome da pessoa cujo livro foi emprestado ou doado: {%if object.nome_pessoa_empr is None %}Não há empréstimo ou doação.{%else%}{{object.nome_pessoa_empr}}{%endif%}</li>
+    <li>Data do empréstimo ou doação: {%if object.data_emprest_doa is None %}Não há empréstimo ou doação.{%else%}{{object.data_emprest_doa}}{%endif%}</li>
+</ul>
+-->
+
+{% endblock %}

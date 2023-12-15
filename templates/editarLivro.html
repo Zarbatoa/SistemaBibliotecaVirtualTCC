@@ -1,0 +1,14 @@
+{% extends 'dashboard.html' %}
+
+{% block logged_content %}
+<h2>Edição de Livro</h2>
+
+<form method="post">
+    {% csrf_token %}
+    <table>
+        {{ form.as_table }}
+    </table>
+    <input type="submit" value="Salvar"/>
+</form>
+
+{% endblock %}
